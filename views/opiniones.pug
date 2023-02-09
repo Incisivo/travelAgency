@@ -1,0 +1,32 @@
+extends ./layout/index
+
+block contenido
+    main.container.mt-5
+        h1.text-center.mt-5 #{pagina} 
+
+        blockquote.text-center Lee sobre las reseñas de nuestros clientes
+        include ./layout/bloque_opiniones
+
+        .row        
+
+            .col-md-12
+                h2.d-block.w-100.text-center Danos tu Opinión
+
+                if(errores)
+                    each error in errores 
+                        .alert.col.alert-danger.text-center.justify-content-center= error.mensaje
+
+            .row.justify-content-center.col 
+                .col-md-8 
+                    form(action="/opiniones" method="POST")
+                        .form-group 
+                            label(for="nombre") Nombre 
+                            input#nombre(type="text", placeholder="Tu nombre", name="nombre", value=nombre, class="form-control")
+                        .form-group 
+                            label(for="email") Email 
+                            input#email(type="email", placeholder="Tu correo", name="email", value=email, class="form-control")
+                        .form-group 
+                            label(for="mensaje") Mensaje 
+                            textarea#mensaje(class="form-control", name="mensaje", placeholder="Escribe tu opinión",  rows=3)=mensaje 
+
+                        input.btn.btn-success.btn-block(type="submit" value="Enviar") 
